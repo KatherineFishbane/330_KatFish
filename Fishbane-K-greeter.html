@@ -7,27 +7,36 @@
       *{font-size:1.5em;}
 
     </style>
-
-  </head>
-<body>
-  <button>Click Me!</button>
-  <input id="input-firstname" placeholder="Type in your name">
-  <p id="output">???</p>
-
     <script>
     "use strict";
     
-    function sayHello(){
+    function sayHello(message){
        
         let name = document.querySelector("#input-firstname");
         console.log("Name: " + name.value);
 
         let output = document.querySelector("#output");
-        output.innerHTML = `Hello ${name.value} it's me margaret`;
+        output.innerHTML = message;
     }
-    let button1 = document.querySelector("button");
-    button1.onclick = sayHello;
-    
+    function init(){
+    let button1 = document.querySelector("#btnHello");
+    button1.addEventListener('click',function(){sayHello(`Hello ${name.value} it's me margaret`);});
+    }
+    window.onload = init;
+    </script>
+  </head>
+<body>
+  
+
+  <button id = "btnHello">Say Hello</button>
+  <button id = "btnGdbye">Say Goodbye</button>
+  <input id="input-firstname" placeholder="Type in your name">
+  <p id="output">???</p>
+
+    <script>
+      let output = document.querySelector("#output");
+      output.style.backgroundColor = 'red';
+      //convert dashes to camel case
     </script>
 
 </body>
