@@ -3,24 +3,43 @@
   <head>
     <meta charset="utf-8" />
     <title>Greeter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap" rel="stylesheet">
     <style>
       *{font-size:1.5em;}
+      #output{
+        font-family: "Grenze Gotisch", serif;
 
+      }
     </style>
     <script>
     "use strict";
     
     function sayHello(message){
        
-        let name = document.querySelector("#input-firstname");
+       
+       let name = document.querySelector("#input-firstname");
         console.log("Name: " + name.value);
+         if(!name.value){
+        alert("please fill in name");
+        output.innerHTML = ` `;
+      }
+      else{
+          
 
         let output = document.querySelector("#output");
-        output.innerHTML = message;
+        output.innerHTML = message + ` ${name.value} it's me margaret`;
+        console.log(message);
+      }
     }
     function init(){
     let button1 = document.querySelector("#btnHello");
-    button1.addEventListener('click',function(){sayHello(`Hello ${name.value} it's me margaret`);});
+    button1.addEventListener('click',function(){sayHello(`Hello`);});
+    
+
+     
+
     }
     window.onload = init;
     </script>
