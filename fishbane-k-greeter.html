@@ -23,7 +23,11 @@
 
         let text = `${message} ${name.value}!`;
 
-        
+         if(!name.value){
+        alert("please fill in name");
+        output.innerHTML = ` `;
+      }
+
         if (shout.checked) {
           text = text.toUpperCase();
         }
