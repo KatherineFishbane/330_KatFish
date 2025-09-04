@@ -1,7 +1,7 @@
 //"use strict"; NOT NEEDED! Modules run in strict mode by default
 
 
-import isNumeric  from "./utils.js";
+import {sortAscending,isNumeric}  from "./utils.js";
 // For keeping track of number of times each func is called
 // this should be "private" to the file
 // Not using, yet
