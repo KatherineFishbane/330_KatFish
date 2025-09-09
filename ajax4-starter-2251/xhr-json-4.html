@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>XHR - Load Text</title>
+	<style>
+	body{
+	  font-family: sans-serif;
+	}
+	</style>
+
+
+
+</head>
+<body>
+	<h2>XHR - Load Json File</h2>
+	<p>Note that because XHR is loading a local file, this and the other examples will have to be run off a web server rather than from your computer's hard drive (e.g. banjo.rit.edu or VSCode's liveserver etc)</p>
+	
+	<hr>
+	<button id="json-button">Load Regular Json Data</button>
+    <button id="uuid-json-button">Load UUID Json Data</button>
+
+	<p id="output">Click button to load</p>
+
+    <script>
+
+        document.querySelector("#json-button").onclick = loadJsonXHR;
+        document.querySelector("#uuid-json-button").onclick = loadUuidJson;
+
+        const output = document.querySelector("#output");
+
+
+
+        function loadJsonXHR(){
+            console.log("Clicked btn1");
+			const url = "./data/pet-names.json";
+			const xhr = new XMLHttpRequest;
+
+			 xhr.onload = (e) => {
+				const text = e.target.responseText;
+				let json;
+				json = JSON.parse(text);
+				const catnames = json.catnames;
+				const dognames = json.dognames;
+			 }
+
+			 xhr.open("GET",url);
+			 xhr.send();
+			 
+            
+
+        }
+
+        function loadUuidJson(){
+            console.log("Clicked btn2");
+
+
+
+        }
+        
+    </script>
+
+<script>
+
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
-"use strict";
 
-const doubleIt = num => num * 2;
+
+import{doubleIt} from "./utils.js";
 
 const init = () => {
   // hook up UI
@@ -17,7 +17,7 @@ const init = () => {
   };
 };
 
-window.onload = init;
+init();
 
 
 /*
