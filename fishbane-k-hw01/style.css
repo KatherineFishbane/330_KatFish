@@ -1,0 +1,122 @@
+ body{
+             font-family: 'Orbitron', sans-serif;
+        }
+        #output{
+           font-size: 200%; 
+        }
+        #my-Button{
+            width: 200px;
+            height: 50pt;
+            font-size: 15pt;
+        }
+        #five-Button{
+            width: 200px;
+            height: 50pt;
+            font-size: 15pt;
+            display:none;
+        }
+
+        @media only screen and (min-width:240px){
+            body{
+                background-color: antiquewhite;
+                color:darkgoldenrod;
+                font-size: 0.6rem;
+                
+            }
+            h1{
+                color: hotpink;
+                font-size: 1.7rem;
+                text-align: center;
+            }
+            .container{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            #output{
+                text-align: center;
+            }
+            #my-Button{
+                color:hotpink;
+                outline: hotpink;
+                outline-style: solid;
+                background-color: darkgoldenrod;
+            }
+        }
+        @media only screen and (min-width: 320px){
+            .container{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            html,body, .container{
+                height: 100%;
+                margin: 0;
+            }
+            h1{
+                font-size: 1.2rem;
+                background-color: #174287;
+                color: #f5f5f5;
+                padding: 0.8rem;
+                margin: 0;
+                text-align: center;
+            }
+            #output{
+                text-align: center;
+            }
+        }
+        @media only screen and (min-width:768px){
+            h1{
+                font-size: 3rem;
+                background-color: #23D160;
+
+            }
+            #my-Button{
+                width: 300px;
+                height: 75pt;
+                font-size: 1.5rem;
+            }
+            body{
+                color: darkgray;
+                font-size: 2rem;
+            }
+        }
+        @media only screen and (min-width:1024px){
+            body{
+                font-size: 1rem;
+                text-align: left;
+            }
+            h1{
+                background-color: darkred;
+            }
+            .container{
+                display: block;
+                margin: 1rem;
+            }
+            #output{
+                text-align: left;
+            }
+        }
+        @media only screen and (min-width:1408px){
+            #five-Button{
+                display: block;
+            
+                width: 300px;
+                height: 75pt;
+                font-size: 1.5rem;
+                color:hotpink;
+                outline: hotpink;
+                outline-style: solid;
+                background-color: darkgoldenrod;
+                margin-left: 1em;
+            }
+            .buttons{
+                display: flex;
+                flex-direction: row;
+               
+            }
+        }
+        
+        
