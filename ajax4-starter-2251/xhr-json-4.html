@@ -21,7 +21,7 @@
 	<button id="json-button">Load Regular Json Data</button>
     <button id="uuid-json-button">Load UUID Json Data</button>
 
-	<p id="output">Click button to load</p>
+	<div id="output">Click button to load</div>
 
     <script>
 
@@ -43,7 +43,17 @@
 				json = JSON.parse(text);
 				const catnames = json.catnames;
 				const dognames = json.dognames;
+
+
+				let html = "<ol>" + catnames.map(name=> `<li>${name}</li>`).join("") + "</ol>";
+				output.innerHTML = html;
+
 			 }
+			 //let unorderedlist = document.createElement("ol");
+			 //let nameText = document.createTextNode(name);
+			 //nameItem.appendChild;
+
+			
 
 			 xhr.open("GET",url);
 			 xhr.send();
