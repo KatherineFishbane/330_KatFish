@@ -1,15 +1,15 @@
- body{
+body{
              font-family: 'Orbitron', sans-serif;
         }
         #output{
            font-size: 200%; 
         }
-        #myButton{
+        #my-Button{
             width: 200px;
             height: 50pt;
             font-size: 15pt;
         }
-        #fiveButton{
+        #five-Button{
             width: 200px;
             height: 50pt;
             font-size: 15pt;
@@ -37,7 +37,7 @@
             #output{
                 text-align: center;
             }
-            #myButton{
+            #my-Button{
                 color:hotpink;
                 outline: hotpink;
                 outline-style: solid;
@@ -73,7 +73,7 @@
                 background-color: #23D160;
 
             }
-            #myButton{
+            #my-Button{
                 width: 300px;
                 height: 75pt;
                 font-size: 1.5rem;
@@ -100,7 +100,7 @@
             }
         }
         @media only screen and (min-width:1408px){
-            #fiveButton{
+            #five-Button{
                 display: block;
             
                 width: 300px;
@@ -118,5 +118,3 @@
                
             }
         }
-        
-        
