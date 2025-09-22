@@ -18,13 +18,14 @@
 		// #1 call the `init` function after the pages loads
 		window.onload = init;
 		let ctx;
+		let canvas;
 
 		function init() {
 			console.log("page loaded!");
 			// #2 Now that the page has loaded, start drawing!
 
 			// A - `canvas` variable points at <canvas> tag
-			let canvas = document.querySelector("canvas");
+			 canvas = document.querySelector("canvas");
 
 			// B - the `ctx` variable points at a "2D drawing context"
 			ctx = canvas.getContext("2d");
@@ -36,6 +37,13 @@
 		}
 		//UTILITY FUNCTIONS
 		// handy helper functions!
+		function canvasClicked(e) {
+			let rect = e.target.getBoundingClientRect();
+			let mouseX = e.clientX - rect.x;
+			let mouseY = e.clientY - rect.y;
+			console.log(mouseX, mouseY);
+		}
+
 		function getRandomColor() {
 			function getByte() {
 				return 55 + Math.round(Math.random() * 200);
@@ -65,10 +73,28 @@
 			ctx.stroke();
 		}
 
+		function drawRandomCircle(ctx) {
+			ctx.fillStyle = getRandomColor();
+			ctx.strokeStyle = getRandomColor();
+			ctx.lineWidth = getRandomInt(0, 5);
+			ctx.beginPath();
+			ctx.arc(
+				getRandomInt(0, 640),
+				getRandomInt(0, 480),
+				getRandomInt(1, 60),
+				0,
+				2 * Math.PI
+			);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+		}
+
 
 		function update() {
 			requestAnimationFrame(update);
 			drawRandomRect(ctx);
+			drawRandomCircle(ctx);
 
 		}
 

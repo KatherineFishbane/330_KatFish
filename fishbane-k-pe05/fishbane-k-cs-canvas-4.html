@@ -34,6 +34,7 @@
 		let canvas;
 		let createRect = true;
 		let updating = false;
+		let createRectCheck = true;
 
 		function init() {
 			console.log("page loaded!");
@@ -53,6 +54,13 @@
 		}
 		//UTILITY FUNCTIONS
 		// handy helper functions!
+
+		function canvasClicked(e) {
+			let rect = e.target.getBoundingClientRect();
+			let mouseX = e.clientX - rect.x;
+			let mouseY = e.clientY - rect.y;
+			console.log(mouseX, mouseY);
+		}
 		function getRandomColor() {
 			function getByte() {
 				return 55 + Math.round(Math.random() * 200);
@@ -67,31 +75,56 @@
 
 
 		function drawRandomRect(ctx) {
+			drawRectangle(ctx, getRandomInt(0, 640), getRandomInt(0, 480), getRandomInt(1, 120), getRandomInt(1, 120), getRandomColor(), getRandomInt(0, 5), getRandomColor());
+		}
+
+		function drawRandomCircle(ctx) {
 			ctx.fillStyle = getRandomColor();
 			ctx.strokeStyle = getRandomColor();
 			ctx.lineWidth = getRandomInt(0, 5);
 			ctx.beginPath();
-			ctx.rect(
+			ctx.arc(
 				getRandomInt(0, 640),
 				getRandomInt(0, 480),
-				getRandomInt(1, 120),
-				getRandomInt(1, 120)
+				getRandomInt(1, 60),
+				0,
+				2 * Math.PI
 			);
 			ctx.closePath();
 			ctx.fill();
 			ctx.stroke();
 		}
+		function drawRectangle(ctx,x,y,width,height,fillStyle="black",lineWidth=0,strokeStyle="black"){
+			ctx.save();
+			ctx.fillStyle=fillStyle;
+			ctx.beginPath();
+			ctx.rect(x,y,width,height);
+			ctx.fill();
+			if(lineWidth>0){
+				ctx.lineWidth=lineWidth;
+				ctx.strokeStyle=strokeStyle;
+				ctx.stroke();
+			}
+			ctx.closePath();
+			ctx.restore();
+		}
+
+		
 
 
 		function update() {
-			if(!paused ){
+			if (!paused) {
 				requestAnimationFrame(update);
-			drawRandomRect(ctx);
+				if(createRectCheck){
+					drawRandomRect(ctx);
+					drawRandomCircle(ctx);
+				}
+				
 			}
-			else{
+			else {
 				return;
 			}
-			
+
 
 		}
 
@@ -100,6 +133,14 @@
 			let mouseX = e.clientX - rect.x;
 			let mouseY = e.clientY - rect.y;
 			console.log(mouseX, mouseY);
+			for(let i = 0; i<20; i++){
+				let x = getRandomInt(-50,50)+mouseX;
+				let y = getRandomInt(-50,50)+mouseY;
+				let width = getRandomInt(15,50);
+				let height = getRandomInt(15,50);
+				let color = getRandomColor();
+				drawRectangle(ctx,x,y,width,height,color);
+			}
 		}
 
 		function setupUi() {
@@ -107,15 +148,21 @@
 			document.querySelector("#btnPlay").onclick = function () {
 				console.log("Play");
 				paused = false;
-				if(!updating){
-				update();
+				if (!updating) {
+					update();
 				}
 				updating = true;
-				
+
 			};
-			document.querySelector("#btnPause").onclick = function(){
+			document.querySelector("#btnPause").onclick = function () {
 				paused = true;
 				updating = false;
+			}
+
+			canvas.onclick = canvasClicked;
+
+			document.querySelector("#cbRectangles").onclick = function(e){
+				createRectCheck = e.target.checked;
 			}
 
 		}
