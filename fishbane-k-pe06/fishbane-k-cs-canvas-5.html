@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Screensaver</title>
+	<link rel="stylesheet" href="src/style.css">
+	 
+	
+</head>
+
+<body>
+	<canvas width="640" height="480">
+		Get a real browser!
+	</canvas>
+
+	<section>
+		<button id="btnPlay">Play</button>
+		<button id="btnPause">Pause</button>
+		<button id = "btnClear" >Clear</button>
+	</section>
+	<section>
+		<span>
+			<input type="checkbox" id="cbRectangles" checked>
+			<label for="cbRectangles">Rectangles</label>
+		</span>
+		<span>
+			<input type="checkbox" id="cbArcs" checked>
+			<label for="cbArcs">Arcs</label>
+		</span>
+		<span>
+			<input type="checkbox" id="cbLines" checked>
+			<label for="cbLines">Lines</label>
+		</span>
+	</section>
+	<section>
+		<p>Click on the screen to "spraypaint" Circles (you probably want the screensaver to be paused)</p>
+	</section>
+	<script src="src/script.js" type = "module"></script> 
+</body>
+
+</html>
