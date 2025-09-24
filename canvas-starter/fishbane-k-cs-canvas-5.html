@@ -48,10 +48,17 @@
 			// B - the `ctx` variable points at a "2D drawing context"
 			ctx = canvas.getContext("2d");
 			ctx.fillStyle = "red";
-				drawLine(ctx,0,100,640,100,20);
+
 			setupUi();
 			//update();
-			
+			ctx.lineWidth=lineWidth;
+			ctx.strokeStyle=strokeStyle;
+			ctx.beginPath();
+			ctx.moveTo(0,100);
+			ctx.lineTo(600,100);
+			ctx.lineWidth=20;
+			ctx.stroke();
+			ctx.closePath();
 
 
 		}
@@ -86,10 +93,6 @@
 		}
 		function drawRandomLine(ctx){
 			drawLine(ctx,getRandomInt(0,640),getRandomInt(0,480),getRandomInt(0,640),getRandomInt(0,480),getRandomInt(1,5),getRandomColor());
-		}
-		function clearCanvas(){
-			console.log("clear");
-			drawRectangle(ctx,0,0,640,480,"white",0,"white");
 		}
 
 		function drawRectangle(ctx,x,y,width,height,fillStyle="black",lineWidth=0,strokeStyle="black"){
@@ -174,7 +177,9 @@
 				
 			}
 		}
-
+		function clearCanvas(){
+			ctx.drawRectangle(ctx,0,0,canvas.width,canvas.height,"white");
+		}
 		function setupUi() {
 			//arrowify
 			document.querySelector("#btnPlay").onclick = function () {
@@ -189,24 +194,26 @@
 			document.querySelector("#btnPause").onclick = function () {
 				paused = true;
 				updating = false;
-			};
+			}
 			document.querySelector("#btnClear").onclick = function(){
 				clearCanvas();
-			};
+			}
 
 			canvas.onclick = canvasClicked;
 
 			document.querySelector("#cbRectangles").onclick = function(e){
 				createRectCheck = e.target.checked;
-			};
+			}
 			document.querySelector("#cbArcs").onclick = function(e){
 				createArcCheck = e.target.checked;
-			};
+			}
 			document.querySelector("#cbLines").onclick = function(e){
 				createLineCheck = e.target.checked;
-			};
+			}
 
 		}
+
+		
 
 
 	</script>
