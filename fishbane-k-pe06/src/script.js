@@ -1,8 +1,9 @@
-import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.js'
+//importing module functions
+import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from './utils.js'
 		"use strict";
 
 
-		window.onload = init;
+		//global variables
 		let ctx;
 		let paused = false;
 		let canvas;
@@ -12,6 +13,7 @@ import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.
 		let createArcCheck = true;
 		let createLineCheck = true;
 
+	
 		const init = () => {
 			console.log("page loaded!");
 	
@@ -23,12 +25,10 @@ import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.
 			//update();
 		}
 
+		window.onload = init;
 
-		//UTILITY FUNCTIONS
-		// handy helper functions!
 
-		
-
+		//draw functions
 		const drawRandomRect = (ctx) =>{
 			drawRectangle(ctx, getRandomInt(0, 640), getRandomInt(0, 480), getRandomInt(1, 120), getRandomInt(1, 120), getRandomColor(), getRandomInt(0, 5), getRandomColor());
 		}
@@ -45,12 +45,12 @@ import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.
 		}
 
 		
-		
-
-
+	//update loop 
 		const update = () => {
+			//if not paused then draw
 			if (!paused) {
 				requestAnimationFrame(update);
+				//if the checkboxes for the shapes are checked then draw them
 				if(createRectCheck){
 					drawRandomRect(ctx);
 					
@@ -61,8 +61,6 @@ import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.
 				if(createLineCheck){
 					drawRandomLine(ctx);
 				}
-				
-				
 			}
 			else {
 				return;
@@ -71,11 +69,14 @@ import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.
 
 		}
 
+		//spraypaint function
 		const canvasClicked = (e) =>{
+			//checking where the mouse is on the canvas
 			let rect = e.target.getBoundingClientRect();
 			let mouseX = e.clientX - rect.x;
 			let mouseY = e.clientY - rect.y;
 			console.log(mouseX, mouseY);
+			//drawing circles around the mouse
 			for(let i = 0; i<20; i++){
 				let x = getRandomInt(-50,50)+mouseX;
 				let y = getRandomInt(-50,50)+mouseY;
@@ -86,8 +87,9 @@ import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.
 			}
 		}
 
+		//setting up all of the buttons and checkboxes
 		const setupUi = () => {
-			//arrowify
+			//plays
 			document.querySelector("#btnPlay").onclick = function () {
 				console.log("Play");
 				paused = false;
@@ -97,22 +99,27 @@ import {getRandomColor,getRandomInt,drawRectangle,drawArc,drawLine} from 'utils.
 				updating = true;
 
 			};
+			//pauses
 			document.querySelector("#btnPause").onclick = function () {
 				paused = true;
 				updating = false;
 			};
+			//clears
 			document.querySelector("#btnClear").onclick = function(){
 				clearCanvas();
 			};
-
+			//canvas click for spraypaint
 			canvas.onclick = canvasClicked;
 
+			//rectangle checkbox
 			document.querySelector("#cbRectangles").onclick = function(e){
 				createRectCheck = e.target.checked;
 			};
+			//circle checkbox
 			document.querySelector("#cbArcs").onclick = function(e){
 				createArcCheck = e.target.checked;
 			};
+			//line checkbox
 			document.querySelector("#cbLines").onclick = function(e){
 				createLineCheck = e.target.checked;
 			};
