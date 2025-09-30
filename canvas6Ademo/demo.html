@@ -91,7 +91,7 @@
 			ctx.stroke();
             ctx.restore();
 
-            //drawSquare2(ctx,100,100,9,19,rotation,"orange",1);
+            drawSquare2(ctx,100,100,9,19,rotation,"orange",1);
 
 		}
         loop();
@@ -103,15 +103,15 @@
 			ctx.fillRect(x,y,width,height);
 			ctx.restore();
 		}
-        function drawSquare2(ctx,x,y,width,height,rotation,fillStyle,scale){
-            ctx.save();
-            ctx.fillStyle = fillStyle;
-            ctx.translate(x,y);
-            ctx.rotate(rotation);
-            ctx.scale(scale);
-            ctx.fillRect(0-width/2,0-height/2,width,height);
-            ctx.restore();
-        }
+		function drawSquare2(ctx,x,y,width,height,rotation,fillStyle,scale){
+			ctx.save();
+			ctx.fillStyle = fillStyle;
+			ctx.translate(x,y);
+			ctx.rotate(rotation);
+			ctx.scale(scale, scale);
+			ctx.fillRect(0-width/2,0-height/2,width,height);
+			ctx.restore();
+		}
 	</script>
 </body>
 </html>
