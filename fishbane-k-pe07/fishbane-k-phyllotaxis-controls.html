@@ -74,6 +74,7 @@
         function setUpUI() {
             document.querySelector("#restart").onclick = () => {
                 n = 0;
+                pedalSize = 2;
                 ctx.fillRect(0, 0, canvasWidth, canvasHeight);
             };
             document.querySelector("#divergence").onclick = () => {
