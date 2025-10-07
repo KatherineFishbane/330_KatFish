@@ -1,0 +1,38 @@
+{
+    "rpgs": [
+        "The Elder Scrollbars",
+        "Final Function",
+        "Console.log() of Zelda",
+        "Dark Variables",
+        "The Debugger 3: Wild Hunt",
+        "Fallout: New Vegas (Strip)",
+        "Mass Effect: Andromeda Coffee",
+        "Skyrim Job",
+        "Dragon Age: Inquisition Marks",
+        "Persona 5: The Animation Loop"
+    ],
+    "shooters": [
+        "Call of jQuery",
+        "Counter-Strict Mode",
+        "Overwatch This Bug",
+        "Halo: Infinite Loop",
+        "Battlefield: Bad Commit",
+        "Apex Syntax",
+        "Valorant Effort",
+        "Destiny 2: The Final Deploy",
+        "Titanfall: Protocol 404",
+        "Rainbow Six: Merge Conflict"
+    ],
+    "puzzle": [
+        "Portal of Madness",
+        "Tetris the Musical",
+        "Candy Crash Saga",
+        "The Witness Protection Program",
+        "Monument Valley Girl",
+        "Baba Is Bug",
+        "Return of the Obra Dinn't Work",
+        "The Talos Principle Engineer",
+        "Fez Hat",
+        "Limbo Dancing"
+    ]
+}
