@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        const init = () => {
+
+            "use strict";
+            let id;
+            let verified;
+            const user = ({
+                id: 42,
+                verified: true
+            });
+            ({ id, verified } = user);
+            // const id = user.id;
+            // const verified = user["verified"];
+            console.log(id);
+            console.log(verified);
+
+
+            const fishFish2 = ({ type, size, location, price, gender, quality }) => {
+                console.log(`Caught!
+                Species: ${type}
+                Size: ${size} in
+                Location Caught: ${location}
+                Price: $${price}
+                Gender: ${gender}
+                Quality: ${quality}/10`);
+            };
+            fishFish2({
+                type: "Sockeye Salmon",
+                size: 22,
+                location: "Jones",
+                price: 30,
+                gender: "M",
+                quality: 8,
+            });
+
+
+            // TODO: Create this function using destructuring
+            const createCharacter = ({ name, class: charClass, level, health, mana, strength, dexterity }) => {
+
+                console.log(`=== Character Sheet ===
+                Name: ${name}
+                Class: ${charClass}
+                Level: ${level}
+                HP: ${health} | MP: ${mana}
+                STR: ${strength} | DEX: ${dexterity}`);
+                // TODO: Log a formatted character sheet
+            };
+
+            // Test your function with this call:
+            createCharacter({
+                name: "Aragorn",
+                class: "Ranger",
+                level: 10,
+                health: 120,
+                mana: 50,
+                strength: 18,
+                dexterity: 16
+            });
+
+            const colors = ["r","g","b"];
+            const[first, second, third] = colors;
+            console.log(second);
+
+            //EXPECTED OUTPUT:
+            // === Character Sheet ===
+            // Name: Aragorn
+            // Class: Ranger
+            // Level: 10
+            // HP: 120 | MP: 50
+            // STR: 18 | DEX: 16
+        }
+
+
+
+        window.onload = init;
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
