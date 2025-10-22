@@ -17,5 +17,6 @@
         }
        const str = `${randomELement(words1)} ${randomELement(words2)} ${randomELement(words3)} `;
         document.querySelector("#output").innerHTML = str;
+        
     
     }

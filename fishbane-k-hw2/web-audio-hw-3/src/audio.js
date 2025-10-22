@@ -4,6 +4,8 @@ let audioCtx;
 // **These are "private" properties - these will NOT be visible outside of this module (i.e. file)**
 // 2 - WebAudio nodes that are part of our WebAudio audio routing graph
 let element, sourceNode, analyserNode, gainNode;
+let highShelfFilter, lowShelfFilter;
+
 
 // 3 - here we are faking an enumeration
 const DEFAULTS = Object.freeze({
@@ -16,6 +18,7 @@ let audioData = new Uint8Array(DEFAULTS.numSamples / 2);
 
 // **Next are "public" methods - we are going to export all of these at the bottom of this file**
 const setupWebaudio = (filePath) =>{
+    
     // 1 - The || is because WebAudio has not been standardized across browsers yet
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     audioCtx = new AudioContext();
@@ -49,23 +52,84 @@ const setupWebaudio = (filePath) =>{
     gainNode = audioCtx.createGain();
     gainNode.gain.value = DEFAULTS.gain;
     // 8 - connect the nodes - we now have an audio graph
-    sourceNode.connect(analyserNode);
+    
+    lowShelfFilter = audioCtx.createBiquadFilter();
+    lowShelfFilter.type = "lowshelf";
+    lowShelfFilter.frequency.value = 500;
+    lowShelfFilter.gain.value = 0;
+
+    highShelfFilter = audioCtx.createBiquadFilter();
+    highShelfFilter.type = "highshelf";
+    highShelfFilter.frequency.value = 2000;
+    highShelfFilter.gain.value = 0;
+
+    sourceNode.connect(lowShelfFilter);
+    lowShelfFilter.connect(highShelfFilter);
+    highShelfFilter.connect(analyserNode);
     analyserNode.connect(gainNode);
     gainNode.connect(audioCtx.destination);
+  
 }
-// make sure that it's a Number rather than a String
+
 const loadSoundFile = (filepath) =>{
     element.src = filepath;
 }
+//play sound
 const playCurrentSound = () =>{
     element.play();
 }
+//pause sound
 const pauseCurrentSound = () =>{
     element.pause();
 }
+//set volume
 const setVolume = (value) =>{
     value = Number(value); 
     gainNode.gain.value = value;
 }
+//bass boost
+const bassBoost = (isOn) => {
+    if (!lowShelfFilter) return;
+    if (isOn) {
+        lowShelfFilter.gain.value = 15;
+    }
+    else {
+        lowShelfFilter.gain.value = 0;
+    }
+    console.log("Bass boost:", lowShelfFilter.gain.value);
+}
+//treble boost 
+const trebleBoost = (isOn) => {
+    if (!highShelfFilter) return;
+    if (isOn) {
+        highShelfFilter.gain.value = 15;
+    }
+    else {
+        highShelfFilter.gain.value = 0;
+    }
+    console.log("Treble boost:", highShelfFilter.gain.value);
+}
 
-export {audioCtx, setupWebaudio, playCurrentSound, pauseCurrentSound, loadSoundFile, setVolume, analyserNode};
+//helper functins
+const createHighShelfFilter = (audioCtx) => {
+    let highShelfFilter = audioCtx.createBiquadFilter();
+    highShelfFilter.type = "highshelf";
+    highShelfFilter.frequency.value = 2000;
+    highShelfFilter.gain.value = 0;
+    sourceNode.disconnect();
+    sourceNode.connect(highShelfFilter);
+    highShelfFilter.connect(analyserNode);
+    return highShelfFilter;
+}
+const createLowShelfFilter = (audioCtx) => {
+    let lowShelfFilter = audioCtx.createBiquadFilter();
+    lowShelfFilter.type = "lowshelf";
+    lowShelfFilter.frequency.value = 500;
+    lowShelfFilter.gain.value = 0;
+    analyserNode.disconnect();
+    analyserNode.connect(lowShelfFilter);
+    lowShelfFilter.connect(gainNode);
+    return lowShelfFilter;
+}
+
+export { audioCtx, setupWebaudio, playCurrentSound, pauseCurrentSound, loadSoundFile, setVolume, analyserNode, bassBoost, trebleBoost};
