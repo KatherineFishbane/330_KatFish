@@ -9,14 +9,9 @@
 import * as audio from './audio.js';
 import * as utils from './utils.js';
 import * as canvas from './canvas.js';
-const drawParams = {
-  showGradient: true,
-  showBars: true,
-  showCircles: true,
-  showNoise: false,
-  showInvert: false,
-  showEmboss: false
+let drawParams = {
 };
+
 
 // 1 - here we are faking an enumeration
 const DEFAULTS = Object.freeze({
@@ -28,15 +23,19 @@ const init = () =>{
   console.log("init called");
   console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
   audio.setupWebaudio(DEFAULTS.sound1);
-  let canvasElement = document.querySelector("canvas"); // hookup <canvas> element
+  let canvasElement = document.querySelector("canvas"); 
   setupUI(canvasElement);
   canvas.setupCanvas(canvasElement,audio.analyserNode);
+  fetchDefaultState();
+  fetchSongs();
+  
   loop();
 }
 
 const setupUI = (canvasElement) =>{
   // A - hookup fullscreen button
-  const fsButton = document.querySelector("#fsButton");
+  const fsButton = document.querySelector("#fs-button");
+  const playButton = document.querySelector("#play-button");
 
   // add .onclick event to button
   fsButton.onclick = e => {
@@ -59,8 +58,8 @@ const setupUI = (canvasElement) =>{
     }
   };
   // C - hookup volume slider and label
-  const volumeSlider = document.querySelector("#volume-Slider");
-  const volumeLabel = document.querySelector("#volume-Label");
+  const volumeSlider = document.querySelector("#volume-slider");
+  const volumeLabel = document.querySelector("#volume-label");
   //add .oninput event to slider
   volumeSlider.oninput = e => {
     //set the gain
@@ -72,7 +71,7 @@ const setupUI = (canvasElement) =>{
   volumeSlider.dispatchEvent(new Event("input"));
 
   //D - hookup track <select>
-  let trackSelect = document.querySelector("#trackSelect");
+  let trackSelect = document.querySelector("#track-select");
   //add .onchange event to <select>
   trackSelect.onchange = e => {
     audio.loadSoundFile(e.target.value);
@@ -81,6 +80,7 @@ const setupUI = (canvasElement) =>{
       playButton.dispatchEvent(new MouseEvent("click"));
     }
   };
+  
   //E - hookup checkboxes
   let gradientCB = document.querySelector("#gradient-CB");
   let barsCB = document.querySelector("#bars-CB");
@@ -88,13 +88,25 @@ const setupUI = (canvasElement) =>{
   let noiseCB = document.querySelector("#noise-CB");
   let invertCB = document.querySelector("#invert-CB");
   let embossCB = document.querySelector("#emboss-CB");
+  let waveformCB = document.querySelector("#waveform-CB");
+  let bassCB = document.querySelector("#bass-CB");
+  let trebleCB = document.querySelector("#treble-CB");
 
-  gradientCB.checked = drawParams.showGradient;
-  barsCB.checked = drawParams.showBars;
-  circlesCB.checked = drawParams.showCircles;
-  noiseCB.checked = drawParams.showNoise;
-  invertCB.checked = drawParams.showInvert;
-  embossCB.checked = drawParams.showEmboss;
+  waveformCB.onchange = e => {
+    drawParams.showWaveform = e.target.checked;
+  }
+  bassCB.onchange = e => {
+  drawParams.showBass = e.target.checked;
+  audio.bassBoost(e.target.checked);
+}
+
+trebleCB.onchange = e => {
+  drawParams.showTreble = e.target.checked;
+  audio.trebleBoost(e.target.checked);
+}
+
+
+  
   gradientCB.onchange = e => {
     drawParams.showGradient = e.target.checked;
   }
@@ -121,33 +133,78 @@ const setupUI = (canvasElement) =>{
 } // end setupUI
 
 const loop = () =>{
-  /* NOTE: This is temporary testing code that we will delete in Part II */
-  requestAnimationFrame(loop);
+
+  setTimeout(loop,1000/60); //60 fps
   canvas.draw(drawParams);
-  // 1) create a byte array (values of 0-255) to hold the audio data
-  // normally, we do this once when the program starts up, NOT every frame
-  // let audioData = new Uint8Array(audio.analyserNode.fftSize / 2);
+  
+}
+//fetch songs from json file
+const fetchSongs = () =>{
+  const url = "data/av-data.json";
+  const category = "songs";
+  const trackSelect = document.querySelector("#track-select");
+  const callback = (data) => {
+    console.log("fetchSongs callback called");
+    console.log(data);
+    for (let song of data) {
+      let option = document.createElement("option");
+      option.value = song.url;
+      option.innerHTML = song.title;
+      trackSelect.appendChild(option);
+    }
+  };
+  utils.fetchData(url, category, callback);
 
-  // // 2) populate the array of audio data *by reference* (i.e. by its address)
-  // audio.analyserNode.getByteFrequencyData(audioData);
 
-  // // 3) log out the array and the average loudness (amplitude) of all of the frequency bins
-  // console.log(audioData);
+}
+//fetch default state from json file
+const fetchDefaultState = () =>{
+  const url = "data/av-data.json";
+  const category = "defaults";
+  const callback = (data) => {
+    console.log("fetchDefaultState callback called");
+    console.log(data);
+    let def = data[0];
+    //set drawParams default state
+    drawParams.showGradient = def.gradient;
+    drawParams.showBars = def.bars;
+    drawParams.showCircles = def.circles;
+    drawParams.showNoise = def.noise;
+    drawParams.showInvert = def.invert;
+    drawParams.showEmboss = def.emboss;
+    drawParams.showWaveform = def.waveform;
+    drawParams.showBass = def.bass;
+    drawParams.showTreble = def.treble;
+    console.log(drawParams);
+    //set the checkboxes to match the default state
+    document.querySelector("#gradient-CB").checked = drawParams.showGradient;
+    document.querySelector("#bars-CB").checked = drawParams.showBars;
+    document.querySelector("#circles-CB").checked = drawParams.showCircles;
+    document.querySelector("#noise-CB").checked = drawParams.showNoise;
+    document.querySelector("#invert-CB").checked = drawParams.showInvert;
+    document.querySelector("#emboss-CB").checked = drawParams.showEmboss;
+    document.querySelector("#waveform-CB").checked = drawParams.showWaveform;
+    document.querySelector("#bass-CB").checked = drawParams.showBass;
+    document.querySelector("#treble-CB").checked = drawParams.showTreble;
 
-  // console.log("-----Audio Stats-----");
-  // let totalLoudness = audioData.reduce((total, num) => total + num);
-  // let averageLoudness = totalLoudness / (audio.analyserNode.fftSize / 2);
-  // let minLoudness = Math.min(...audioData); // ooh - the ES6 spread operator is handy!
-  // let maxLoudness = Math.max(...audioData); // ditto!
-  // // Now look at loudness in a specific bin
-  // // 22050 kHz divided by 128 bins = 172.23 kHz per bin
-  // // the 12th element in array represents loudness at 2.067 kHz
-  // let loudnessAt2K = audioData[11];
-  // console.log(`averageLoudness = ${averageLoudness}`);
-  // console.log(`minLoudness = ${minLoudness}`);
-  // console.log(`maxLoudness = ${maxLoudness}`);
-  // console.log(`loudnessAt2K = ${loudnessAt2K}`);
-  // console.log("---------------------");
+    canvas.draw(drawParams);
+
+  };
+  
+
+  utils.fetchData(url, category, callback);
 }
 
+//fetch app title from json file
+const fetchAppTitle = () =>{
+  const url = "data/av-data.json";
+  const category = "title";
+  const callback = (data) => {
+    console.log("fetchAppTitle callback called");
+    console.log(data);
+    document.querySelector("title").innerHTML = data;
+    document.querySelector("h1").innerHTML = data;
+  };
+  utils.fetchData(url, category, callback);
+}
 export { init };

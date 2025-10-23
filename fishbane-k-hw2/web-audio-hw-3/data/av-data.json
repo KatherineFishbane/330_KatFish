@@ -1,0 +1,31 @@
+{
+    "title": "Sunset Audio Visualizer",
+    "songs": [
+        {
+            "title": "New Adventure Theme",
+            "url": "media/New Adventure Theme.mp3"
+        },
+        {
+            "title": "Peanuts Theme",
+            "url": "media/Peanuts Theme.mp3"
+        },
+        {
+            "title": "The Picard Song",
+            "url": "media/The Picard Song.mp3"
+        }
+    ],
+    "defaults": [
+        {
+        "gradient": true,
+        "bars": true,
+        "circles": true,
+        "noise": false,
+        "invert": false,
+        "emboss": false,
+        "waveform": false,
+        "bass": false,
+        "treble": false
+        }
+
+    ]
+}

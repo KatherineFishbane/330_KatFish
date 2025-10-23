@@ -33,5 +33,29 @@ const goFullscreen = (element) => {
   }
   // .. and do nothing if the method is not supported
 };
+const fetchData = (url, category, callback) => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onload = (e) => {
+      if (xhr.status === 200) { 
+          try {
+              
+              let responseData = e.target.responseText;
+              responseData = JSON.parse(responseData);
+              const data = responseData[category] || []; 
+              callback(data); 
+          } catch (error) {
+              console.error('Error parsing JSON:', error);
+          }
+      } else {
+          console.error('Failed to load data');
+      }
+  };
+  xhr.onerror = () => console.error('XHR request error');
+  xhr.send();
+};
 
-export {makeColor, getRandomColor, getLinearGradient, goFullscreen};
+
+        
+
+export {makeColor, getRandomColor, getLinearGradient, goFullscreen,fetchData};
