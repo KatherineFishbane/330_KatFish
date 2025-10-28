@@ -3,7 +3,7 @@ import { formatGreeting, doubleIt, defaultName, meaningOfLife } from "./utils.js
 import * as utils from  "./utils.js"; // OR give all of the exported `utils` functions a namespace
 
 let temp = "main.js temp value"; // does not conflict with `temp` in utils.js
-
+let favColor = onratechange;
 const input = document.querySelector("#input-firstname");
 const output = document.querySelector("#output");
 const cbForcefully = document.querySelector("#cb-forcefully");
