@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shapeinator Practical</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+
+</head>
+
+<body>
+    <h1 class="title is-1">Shapeinator</h1>
+    <section class="section">
+        <div class="container has-text-centered">
+            <!-- app title goes here -->
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    <div class="select is-warning">
+                        <select id="shape-select">
+                            <option value="line" selected>Line</option>
+                            <option value="square">Square</option>
+                            <option value="triangle">Triangle</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" id="rotate-checkbox"> Rotate
+                    </label>
+                </div>
+
+                <div class="control">
+                    <button id="draw-button" class="button is-warning">Draw</button>
+                </div>
+            </div>
+            <div class="is-flex is-justify-content-center mt-5">
+                <canvas id="shape-canvas" width="400" height="400" class="box"></canvas>
+            </div>
+        </div>
+    </section>
+    <script src="dist/bundle.js"></script>
+</body>
+
+</html>
