@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Visualizer</title>
+  <link href="./styles/default-styles.css" type="text/css" rel="stylesheet" />
+  <script src="./src/loader.js" type="module"></script>
+</head>
+
+<body>
+  <main>
+    <canvas width="800" height="400"></canvas>
+    <div id="controls">
+      <section>
+        <button id="play-button" data-playing="no"></button>
+        <button id="fs-button">Full Screen</button>
+
+        <label>Track:
+          <select id="track-select">
+          </select>
+        </label>
+      </section>
+
+      <section>
+        Volume: <input type="range" id="volume-slider" min="0" max="2" value="1" step="0.01">
+        <span id="volume-label">???</span>
+      </section>
+    </div>
+
+    <section>
+      <span><input type="checkbox" id="gradient-CB"><label for="gradient-CB">Show Gradient</label></span>
+      <span><input type="checkbox" id="bars-CB"><label for="bars-CB">Show Bars</label></span>
+      <span><input type="checkbox" id="circles-CB"><label for="circles-CB">Show Circles</label></span>
+      <span><input type="checkbox" id="noise-CB"><label for="noise-CB">Show Noise</label></span>
+      <span><input type="checkbox" id="invert-CB"><label for="invert-CB">Show Invert</label></span>
+      <span><input type="checkbox" id="emboss-CB"><label for="emboss-CB">Show Emboss</label></span>
+      <span><input type ="checkbox" id= "waveform-CB"><label for="waveform-CB">Show Waveform</label></span>
+      <span><input type ="checkbox" id= "bass-CB"><label for="bass-CB">Show Bass</label></span>
+      <span><input type ="checkbox" id= "treble-CB"><label for="treble-CB">Show Treble</label></span>
+    </section>
+  </main>
+
+  <script src="dist/bundle.js"></script>
+</body>
+
+</html>

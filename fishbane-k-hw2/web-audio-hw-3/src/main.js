@@ -18,21 +18,22 @@ const DEFAULTS = Object.freeze({
   sound1: "media/New Adventure Theme.mp3"
 });
 
-const init = () =>{
+const init = () => {
 
   console.log("init called");
   console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
   audio.setupWebaudio(DEFAULTS.sound1);
-  let canvasElement = document.querySelector("canvas"); 
+  let canvasElement = document.querySelector("canvas");
   setupUI(canvasElement);
-  canvas.setupCanvas(canvasElement,audio.analyserNode);
+  canvas.setupCanvas(canvasElement, audio.analyserNode);
   fetchDefaultState();
   fetchSongs();
-  
+  fetchAppTitle();
+
   loop();
 }
 
-const setupUI = (canvasElement) =>{
+const setupUI = (canvasElement) => {
   // A - hookup fullscreen button
   const fsButton = document.querySelector("#fs-button");
   const playButton = document.querySelector("#play-button");
@@ -80,7 +81,7 @@ const setupUI = (canvasElement) =>{
       playButton.dispatchEvent(new MouseEvent("click"));
     }
   };
-  
+
   //E - hookup checkboxes
   let gradientCB = document.querySelector("#gradient-CB");
   let barsCB = document.querySelector("#bars-CB");
@@ -96,17 +97,17 @@ const setupUI = (canvasElement) =>{
     drawParams.showWaveform = e.target.checked;
   }
   bassCB.onchange = e => {
-  drawParams.showBass = e.target.checked;
-  audio.bassBoost(e.target.checked);
-}
+    drawParams.showBass = e.target.checked;
+    audio.bassBoost(e.target.checked);
+  }
 
-trebleCB.onchange = e => {
-  drawParams.showTreble = e.target.checked;
-  audio.trebleBoost(e.target.checked);
-}
+  trebleCB.onchange = e => {
+    drawParams.showTreble = e.target.checked;
+    audio.trebleBoost(e.target.checked);
+  }
 
 
-  
+
   gradientCB.onchange = e => {
     drawParams.showGradient = e.target.checked;
   }
@@ -132,14 +133,14 @@ trebleCB.onchange = e => {
 
 } // end setupUI
 
-const loop = () =>{
+const loop = () => {
 
-  setTimeout(loop,1000/60); //60 fps
+  setTimeout(loop, 1000 / 60); //60 fps
   canvas.draw(drawParams);
-  
+
 }
 //fetch songs from json file
-const fetchSongs = () =>{
+const fetchSongs = () => {
   const url = "data/av-data.json";
   const category = "songs";
   const trackSelect = document.querySelector("#track-select");
@@ -158,7 +159,7 @@ const fetchSongs = () =>{
 
 }
 //fetch default state from json file
-const fetchDefaultState = () =>{
+const fetchDefaultState = () => {
   const url = "data/av-data.json";
   const category = "defaults";
   const callback = (data) => {
@@ -190,21 +191,26 @@ const fetchDefaultState = () =>{
     canvas.draw(drawParams);
 
   };
-  
+
 
   utils.fetchData(url, category, callback);
 }
 
 //fetch app title from json file
-const fetchAppTitle = () =>{
+const fetchAppTitle = () => {
   const url = "data/av-data.json";
   const category = "title";
+
   const callback = (data) => {
-    console.log("fetchAppTitle callback called");
-    console.log(data);
-    document.querySelector("title").innerHTML = data;
-    document.querySelector("h1").innerHTML = data;
+    document.title = data;
+    const h1 = document.querySelector("h1");
+    if (h1) h1.textContent = data;
   };
+
   utils.fetchData(url, category, callback);
-}
+};
+
+
+
+
 export { init };
