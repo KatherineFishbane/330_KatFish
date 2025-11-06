@@ -6,12 +6,14 @@
 		let scale = 1;
 		let grow = true;
 
+		//bad
     const drawSquare1 = (ctx, x, y, width, height, fillStyle) =>{
 			ctx.save();
 			ctx.fillStyle = fillStyle;
 			ctx.fillRect(x, y, width, height);
 			ctx.restore();
 		}
+		//better
 		const drawSquare2= (ctx, x, y, width, height, rotation, fillStyle, scale) =>{
 			ctx.save();
 			ctx.fillStyle = fillStyle;
@@ -77,32 +79,7 @@
 			ctx.fillRect(100, 100, 100, 100);
 			ctx.restore();
 
-			//ctx.restore();
-			// // draw square with rect()
-			// ctx.fillStyle="blue";
-			// ctx.beginPath();
-			// ctx.rect(300,100,100,100);
-			// ctx.closePath();
-			// ctx.fill();
-
-			// // draw squares with our helper function
-			// drawSquare1(ctx,100,0,100,100,"orange");
-			// drawSquare1(ctx,250,0,100,100,"orange");
-			// drawSquare1(ctx,400,0,100,100,"orange");
-
-			// ctx.save();
-
-			// // draw a triangle
-			// ctx.strokeStyle="red";
-			// ctx.fillStyle="red";
-			// ctx.lineWidth="5";
-			// ctx.beginPath();
-			// ctx.moveTo(500,100);
-			// ctx.lineTo(550,200);
-			// ctx.lineTo(450,200);
-			// ctx.closePath();
-			// ctx.stroke();
-			// ctx.restore();
+			
 			ctx.save();
 			//draw a "better" triangle - why is this better? You'll see!
 			ctx.strokeStyle = "red";
