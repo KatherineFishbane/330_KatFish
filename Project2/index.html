@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trivia Time!</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+  <link rel="stylesheet" href="style/style.css">
+  
+  <script src="src/main.js" type="module"></script>
+</head>
+
+<body class="has-background-dark">
+  <section class="section">
+    <div class="container">
+      <header class="has-text-centered mb-5">
+        <h1 class="title is-2 has-text-black">Trivia Time!</h1>
+      </header>
+
+      <div class="box">
+        <div class="field">
+          <label class="label" for="question-count">Number of Questions</label>
+          <div class="control">
+            <div class="select is-primary is-fullwidth">
+              <select id="question-count">
+                <option value="1">1</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="question-category">Category</label>
+          <div class="control">
+            <div class="select is-primary is-fullwidth">
+              <select id="question-category">
+                <option value="">Any Category</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="question-difficulty">Difficulty</label>
+          <div class="control">
+            <div class="select is-primary is-fullwidth">
+              <select id="question-difficulty">
+                <option value="">Any Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field has-text-centered mt-5">
+            <button type="button" id="search" class="button is-warning is-medium">
+            Start Trivia
+          </button>
+        </div>
+      </div>
+
+      <div id="status" class="notification is-info has-text-centered mt-5">
+        Ready to Search!
+      </div>
+    </div>
+  </section>
+</body>
+</html>
