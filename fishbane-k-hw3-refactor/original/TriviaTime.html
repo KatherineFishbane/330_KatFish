@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Time!</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+  
+    <header>
+        Trivia Time!
+    </header>
+
+  
+    <div class="widgets">
+        <label for="question-count">Number of Questions:</label>
+        <select id="question-count">
+            <option value="1">1</option>
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+
+        <label for="question-category">Category:</label>
+        <select id="question-category">
+            <option value="">Any Category</option>
+        </select>
+
+        <label for="question-difficulty">Difficulty:</label>
+        <select id="question-difficulty">
+            <option value="">Any Difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <button type="button" id="search" class="submit-button">Start Trivia</button>
+    </div>
+
+
+    <div id="status">Ready to Search!</div>
+
+    
+    <script src="main.js"></script>
+</body>
+</html>

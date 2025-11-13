@@ -6,9 +6,9 @@
 // We will write the functions in this file in the traditional ES5 way
 // In this instance, we feel the code is more readable if written this way
 // If you want to re-write these as ES6 arrow functions, to be consistent with the other files, go ahead!
-import * as audio from './audio.js';
-import * as utils from './utils.js';
-import * as canvas from './canvas.js';
+import * as audio from './audio';
+import * as utils from './utils';
+import * as canvas from './canvas';
 let drawParams = {
 };
 
@@ -35,8 +35,8 @@ const init = () => {
 
 const setupUI = (canvasElement) => {
   // A - hookup fullscreen button
-  const fsButton = document.querySelector("#fs-button");
-  const playButton = document.querySelector("#play-button");
+  const fsButton = document.querySelector("#fs-button") as HTMLButtonElement;
+  const playButton = document.querySelector("#play-button") as HTMLButtonElement;
 
   // add .onclick event to button
   fsButton.onclick = e => {
@@ -44,35 +44,37 @@ const setupUI = (canvasElement) => {
     utils.goFullscreen(canvasElement);
   };
   playButton.onclick = e => {
+    const target = e.target as HTMLInputElement;
     console.log(`audio.audioCtx state = ${audio.audioCtx.state}`);
 
     if (audio.audioCtx.state == 'suspended') {
       audio.audioCtx.resume();
     }
     console.log(`audioCtx state = ${audio.audioCtx.state}`);
-    if (e.target.dataset.playing == "no") {
+    if (target.dataset.playing == "no") {
       audio.playCurrentSound();
-      e.target.dataset.playing = "yes";
+      target.dataset.playing = "yes";
     } else {
       audio.pauseCurrentSound();
-      e.target.dataset.playing = "no";
+      target.dataset.playing = "no";
     }
   };
   // C - hookup volume slider and label
-  const volumeSlider = document.querySelector("#volume-slider");
-  const volumeLabel = document.querySelector("#volume-label");
+  const volumeSlider = document.querySelector("#volume-slider") as HTMLInputElement;
+  const volumeLabel = document.querySelector("#volume-label") as HTMLSpanElement;
   //add .oninput event to slider
   volumeSlider.oninput = e => {
+    const target = e.target as HTMLInputElement;
     //set the gain
-    audio.setVolume(e.target.value);
+    audio.setVolume(target.value);
     //update the value of the label to match value of slider
-    volumeLabel.innerHTML = Math.round((e.target.value / 2 * 100));
+    volumeLabel.innerHTML = String(Math.round(parseInt(target.value / 2 * 100)));
   };
   //set value of label to match initial value of slider
   volumeSlider.dispatchEvent(new Event("input"));
 
   //D - hookup track <select>
-  let trackSelect = document.querySelector("#track-select");
+  let trackSelect = document.querySelector("#track-select") as HTMLInputElement;
   //add .onchange event to <select>
   trackSelect.onchange = e => {
     audio.loadSoundFile(e.target.value);
@@ -83,15 +85,15 @@ const setupUI = (canvasElement) => {
   };
 
   //E - hookup checkboxes
-  let gradientCB = document.querySelector("#gradient-CB");
-  let barsCB = document.querySelector("#bars-CB");
-  let circlesCB = document.querySelector("#circles-CB");
-  let noiseCB = document.querySelector("#noise-CB");
-  let invertCB = document.querySelector("#invert-CB");
-  let embossCB = document.querySelector("#emboss-CB");
-  let waveformCB = document.querySelector("#waveform-CB");
-  let bassCB = document.querySelector("#bass-CB");
-  let trebleCB = document.querySelector("#treble-CB");
+  let gradientCB = document.querySelector("#gradient-CB") as HTMLInputElement;
+  let barsCB = document.querySelector("#bars-CB") as HTMLInputElement;
+  let circlesCB = document.querySelector("#circles-CB") as HTMLInputElement;
+  let noiseCB = document.querySelector("#noise-CB") as HTMLInputElement;
+  let invertCB = document.querySelector("#invert-CB") as HTMLInputElement;
+  let embossCB = document.querySelector("#emboss-CB") as HTMLInputElement;
+  let waveformCB = document.querySelector("#waveform-CB") as HTMLInputElement;
+  let bassCB = document.querySelector("#bass-CB") as HTMLInputElement;
+  let trebleCB = document.querySelector("#treble-CB") as HTMLInputElement;
 
   waveformCB.onchange = e => {
     drawParams.showWaveform = e.target.checked;

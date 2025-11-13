@@ -7,10 +7,22 @@
       - maybe a better name for this file/module would be *visualizer.js* ?
 */
 
-import * as utils from './utils.js';
+import * as utils from './utils';
 
 let ctx, canvasWidth, canvasHeight, gradient, analyserNode, audioData;
 let sprites = [];
+
+interface DrawParams{
+  showGradient: boolean,
+  showBars: boolean,
+  showCircles: boolean,
+  showEmboss: boolean,
+  showWaveform: boolean,
+  showInvert:boolean,
+  showNoise:boolean
+  
+
+}
 
 //Sprite class that draws circles that change size with the music and later in the code changes color based on average energy
 class CircleSprite {
@@ -80,7 +92,7 @@ const setupCanvas = (canvasElement, analyserNodeRef) => {
 
 }
 
-const draw = (params = {}) => {
+const draw = (params:DrawParams ) => {
     // 1 - populate the audioData array with the frequency data from the analyserNode
     // notice these arrays are passed "by reference" 
     analyserNode.getByteFrequencyData(audioData);
